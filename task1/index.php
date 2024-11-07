@@ -2,10 +2,10 @@
 /*
  * task1 Отримати залишок від ділення 7 на 3
  */
+
 $number1 = 7;
 $number2 = 3;
 $result = $number1 % $number2;
-echo $result;
 
 /*
  * task2 Отримати цілу частину ділення 7 и 7,15
@@ -61,6 +61,14 @@ $identical = false === 0;
 $string1 = 'three';
 $string2 = 'три';
 $compare = strcmp($string1, $string2);
+var_dump($compare);
+
+$string1 = 'three';
+$string2 = 'три';
+$stringLength1 = mb_strlen($string1);
+$stringLength2 = mb_strlen($string2);
+$compare = $stringLength1 <=> $stringLength2;
+var_dump($compare);
 
 /*
  * task11 Яке число більше 125 умножить на 13 плюс 7 или 223 плюс 28 умножить 2
