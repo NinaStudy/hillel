@@ -152,7 +152,9 @@ $newarray = [];
 foreach ($firstArr as $key => $value) {
     if (is_array($value)) {
         $value = next($value);
-        $newarray[] = $value;
+        if($value) {
+            $newarray[] = $value;
+        }
     }
 }
 var_dump($newarray);
