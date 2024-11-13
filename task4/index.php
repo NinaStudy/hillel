@@ -23,9 +23,7 @@ function countB($myString)
     if (is_string($myString)) {
         return substr_count($myString, 'b');
     }
-    else {
         return false;
-    }
 }
 var_dump(countB('fdgfhhbbbyhbb'));
 
