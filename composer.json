@@ -1,0 +1,24 @@
+{
+    "name": "nina/hillel",
+    "description": "my composer",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nina",
+            "email": "ninacherevko21@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-instal": "dist",
+        "sort-packages": true
+    }
+}
