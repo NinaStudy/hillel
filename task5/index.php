@@ -14,6 +14,7 @@ abstract class MyClass
         self::$name = $name;
     }
 
+
     public static function getName(): string
     {
         return self::$name;
