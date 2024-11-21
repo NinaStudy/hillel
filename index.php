@@ -1,7 +1,7 @@
 <?php
 require_once "vendor/autoload.php";
-use App\FirstClass;
+use App\Core\Router;
+$router = new Router();
+$router->run();
 
-$obj = new FirstClass();
-$obj->setQuantity(2);
-var_dump($obj->getPow());
+
