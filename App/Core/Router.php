@@ -2,11 +2,10 @@
 
 namespace App\Core;
 
-use App\Controllers\Error404;
-
 final class Router
 {
-    const CONTROLLER_NAMESPACE = 'App\Controllers\\';
+    const CONTROLLER_NAMESPACE = 'App\Controllers\Public\\';
+    const CONTROLLER_NAMESPACE_ADMIN = 'App\Controllers\Admin\\';
     private string $methodName = '';
     private string $controllerName = '';
     private array $requestUri = [];
@@ -33,14 +32,17 @@ final class Router
            $this->methodName = 'index';
        } else {
            $configArray = explode('/', $this->config[$this->controllerName . '/' . $this->methodName]);
-           $this->controllerName = $configArray[0];
-           $this->methodName = $configArray[1];
-
+           $this->controllerName = $configArray[1];
+           $this->methodName = $configArray[2];
        }
    }
     private function getNamespace(): string
     {
-            return self::CONTROLLER_NAMESPACE . ucfirst($this->controllerName);
+        $namespace = self::CONTROLLER_NAMESPACE;
+        if($this->isAdmin()) {
+            $namespace = self::CONTROLLER_NAMESPACE_ADMIN;
+        }
+            return $namespace . ucfirst($this->controllerName);
     }
     private function setControllerName(): void
     {
@@ -48,12 +50,18 @@ final class Router
             if (!empty($this->requestUri[2])) {
             $this->controllerName = mb_strtolower($this->requestUri[2], 'UTF-8');
         }
+            if($this->isAdmin() && !empty($this->requestUri[3])) {
+                $this->controllerName = mb_strtolower($this->requestUri[3], 'UTF-8');
+            }
     }
     private function setMethodName(): void
     {
-        $this->methodName = 'index';
-        if(!empty($this->requestUri[3])) {
+        $this->methodName = 'view';
+        if(!empty($this->requestUri[3]) && !$this->isAdmin()) {
             $this->methodName = mb_strtolower($this->requestUri[3], 'UTF-8');
+        }
+        else if($this->isAdmin() && !empty($this->requestUri[4])) {
+            $this->methodName = mb_strtolower($this->requestUri[4], 'UTF-8');
         }
     }
     private function processRequest(): void
@@ -62,6 +70,14 @@ final class Router
         if (isset($_SERVER["REQUEST_URI"])) {
             $this->requestUri = explode("/", $_SERVER["REQUEST_URI"]);
         }
+
+    }
+    private function isAdmin(): bool
+    {
+        if (str_contains($_SERVER["REQUEST_URI"], 'Admin') || str_contains($_SERVER["REQUEST_URI"], 'admin')) {
+            return true;
+        }
+        return false;
     }
 }
 

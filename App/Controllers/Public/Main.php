@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Public;
 
-class Main
+class Main extends Controller
 {
-    public function index()
+    public function view()
     {
-        echo "This is the Main page.";
+        $this->data = [
+            'test' => 1,
+            'test1' => 2,
+        ];
+        $this->publicView('Main/Main');
     }
-    public function create()
+        public function create()
     {
         echo "This is the Main page, Create method.";
     }

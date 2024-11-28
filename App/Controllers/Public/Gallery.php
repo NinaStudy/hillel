@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Public;
 
-class Gallery
+class Gallery extends Controller
 {
-    public function index()
+    public function view()
     {
-        echo "This is the Gallery page.";
+      $this->publicView('Gallery/galleryMain');
     }
     public function create()
     {

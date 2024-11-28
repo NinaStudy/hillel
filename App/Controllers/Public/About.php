@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Public;
 
-class About
+class About extends Controller
 {
-    public function index()
+    public function view()
     {
         echo "This is the About page.";
+        var_dump('123');
     }
     public function create()
     {
