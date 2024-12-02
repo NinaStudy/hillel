@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Public;
+namespace App\Controllers;
 
 class Error404
 {

@@ -1,2 +1,0 @@
-<h2> This is Gallery page</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores assumenda culpa deleniti ducimus, esse maxime necessitatibus neque officiis optio porro provident, quaerat quibusdam quod saepe sit, sunt veniam vitae.</p>
