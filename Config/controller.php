@@ -1,0 +1,30 @@
+<?php
+
+    return [
+        'main/view' => 'Public/Main/view',
+        'about/view' => 'Public/About/view',
+        'gallery/view' => 'Public/Gallery/view',
+        'error404/index' => 'Error404/index',
+
+        'admin/admin/read' => 'Admin/Gallery/read',
+        'admin/gallery/create' => 'Admin/Gallery/create',
+        'admin/gallery/read' => 'Admin/Gallery/read',
+        'admin/gallery/update' => 'Admin/Gallery/update',
+        'admin/gallery/delete' => 'Admin/Gallery/delete',
+        'admin/gallerycategory/create' => "Admin/GalleryCategory/create",
+        'admin/gallerycategory/read' => "Admin/GalleryCategory/read",
+        'admin/gallerycategory/update' => "Admin/GalleryCategory/update",
+        'admin/gallerycategory/delete' => 'Admin/GalleryCategory/delete',
+        'admin/post/create' => 'Admin/Post/create',
+        'admin/post/read' => 'Admin/Post/read',
+        'admin/post/update' => 'Admin/Post/update',
+        'admin/post/delete' => 'Admin/Post/delete',
+        'admin/postcategory/create' => 'Admin/PostCategory/create',
+        'admin/postcategory/read' => 'Admin/PostCategory/read',
+        'admin/postcategory/update' => 'Admin/PostCategory/update',
+        'admin/postcategory/delete' => 'Admin/PostCategory/delete',
+        'admin/user/create' => 'Admin/User/create',
+        'admin/user/read' => 'Admin/User/read',
+        'admin/user/update' => 'Admin/User/update',
+        'admin/user/delete' => 'Admin/User/delete',
+    ];

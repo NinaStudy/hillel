@@ -1,7 +1,11 @@
 <?php
 require_once "vendor/autoload.php";
-use App\FirstClass;
+$config = require "Config/controller.php";
 
-$obj = new FirstClass();
-$obj->setQuantity(2);
-var_dump($obj->getPow());
+use App\Core\Router;
+
+$router = new Router($config);
+$router->run();
+
+
+
