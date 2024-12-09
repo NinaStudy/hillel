@@ -24,6 +24,7 @@ class Insert
 
     public function setFields(array $fieldSet): void
     {
+        $this->value = $fieldSet;
         $prev = [];
         foreach ($fieldSet as $field) {
             if (empty($prev)) {
@@ -36,12 +37,6 @@ class Insert
             $prev = $this->fieldSet;
         }
     }
-
-    public function setValue(array $value): void
-    {
-        $this->value = $value;
-    }
-
 
     /**
      * @throws Exception

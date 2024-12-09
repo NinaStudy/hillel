@@ -15,7 +15,6 @@ class Post extends Controller
         $insert = new Insert();
         $insert->setTableName('Post');
         $insert->setFields($posts);
-        $insert->setValue($posts);
         print_r($insert->buildSql());
     }
 
