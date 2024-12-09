@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Orm\Insert;
 use Exception;
+use App\Orm\Insert as InsertOrm;
 
 class Post
 {
@@ -11,35 +13,45 @@ class Post
             'id' => 1,
             'title' => 'title 1',
             'text' => 'text 1',
-            'postCategoryName' => 'postCategoryName 1',
             'postCategoryId' => 1,
             'userId' => 1,
+            'created' => 1733748291,
+            'updated' => 1733748291,
         ],
         [
             'id' => 2,
             'title' => 'title 2',
             'text' => 'text 2',
-            'postCategoryName' => 'postCategoryName 2',
             'postCategoryId' => 2,
             'userId' => 2,
+            'created' => 1733748291,
+            'updated' => 1733748291,
         ],
         [
             'id' => 3,
             'title' => 'title 3',
             'text' => 'text 3',
-            'postCategoryName' => 'postCategoryName 3',
             'postCategoryId' => 3,
             'userId' => 3,
+            'created' => 1733748291,
+            'updated' => 1733748291,
         ],
         [
             'id' => 4,
             'title' => 'title 4',
             'text' => 'text 4',
-            'postCategoryName' => 'postCategoryName 4',
             'postCategoryId' => 4,
             'userId' => 4,
+            'created' => 1733748291,
+            'updated' => 1733748291,
         ],
     ];
+
+    public function __construct()
+    {
+        $insert = new Insert();
+        $insert->setTableName('Post');
+    }
 
     public function getAllPost(): array
     {

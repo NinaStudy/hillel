@@ -19,14 +19,6 @@
         </tr>
         <tr>
             <td>
-                postCategoryName
-            </td>
-            <td>
-                <input name="postCategoryName" placeholder="text" value="<?= $data['postCategoryName'] ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>
                 postCategoryId
             </td>
             <td>
