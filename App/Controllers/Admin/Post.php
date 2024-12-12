@@ -4,12 +4,18 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
 use App\Models\Post as PostModel;
+use App\Orm\Insert;
 
 class Post extends Controller
 {
     public function create()
     {
-        echo "This is the Admin Post page, Create method.";
+        $model = new PostModel();
+        $posts = $model->getAllPost();
+        $insert = new Insert();
+        $insert->setTableName('Post');
+        $insert->setFields($posts);
+        print_r($insert->buildSql());
     }
 
     public function read()
