@@ -4,17 +4,18 @@ namespace App\Orm;
 
 use PDO;
 use Exception;
+use App\Orm\Connector;
 
 class Insert
 {
     private string $tableName;
     private array $fieldSet = [];
-    private Connector $connector;
+    private PDO $connect;
     private array $value = [];
 
     public function __construct()
     {
-        $this->connector = new Connector();
+        $this->connect = (new Connector())->connect();
     }
 
     public function setTableName(string $tableName): void
@@ -26,15 +27,21 @@ class Insert
     {
         $this->value = $fieldSet;
         $prev = [];
-        foreach ($fieldSet as $field) {
-            if (empty($prev)) {
-                $prev = array_keys($field);
+
+        if ($this->checkFloors()) {
+            foreach ($fieldSet as $key => $items) {
+
+                if (empty($prev)) {
+                    $prev = array_keys($items);
+                }
+                $this->fieldSet = array_keys($items);
+                if (!empty(array_diff_key($prev, $this->fieldSet))) {
+                    throw new Exception('Key different');
+                }
+                $prev = $this->fieldSet;
             }
-            $this->fieldSet = array_keys($field);
-            if (!empty(array_diff_key($this->fieldSet, $prev))) {
-                throw new Exception('Key different');
-            }
-            $prev = $this->fieldSet;
+        } else {
+            $this->fieldSet = array_keys($fieldSet);
         }
     }
 
@@ -43,7 +50,7 @@ class Insert
      */
     public function buildSql(): string
     {
-        return 'INSERT INTO ' . $this->tableName . ' (' . implode(', ', $this->fieldSet) . ') VALUE ' . $this->getValues();
+        return 'INSERT INTO ' . $this->tableName . ' ( `' . implode("`, `", $this->fieldSet) . '`) VALUE ' . $this->getValues();
     }
 
     public function checkFloors(): bool
@@ -55,10 +62,15 @@ class Insert
         }
     }
 
+    public function execute()
+    {
+        $this->connect->query($this->buildSql());
+    }
+
     /**
      * @throws Exception
      */
-    private function getValues()
+    private function getValues(): string
     {
         $result = [];
         if (empty($this->value)) {
@@ -66,11 +78,18 @@ class Insert
         }
         if ($this->checkFloors()) {
             foreach ($this->value as $elem) {
-                $result[] = ' (' . implode(', ', $elem) . ')';
+                $result[] = ' (' . implode(', ', $this->map($elem)) . ')';
             }
         } else {
-            $result[] = ' (' . implode(', ', $this->value) . ')';
+            $result[] = ' (' . implode(', ', $this->map($this->value)) . ')';
         }
         return implode(',', $result);
+    }
+
+    private function map(array $elem): array
+    {
+        return array_map(function ($item) {
+            return "'" . $item . "'";
+        }, $elem);
     }
 }

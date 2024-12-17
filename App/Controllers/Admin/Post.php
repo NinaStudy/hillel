@@ -4,34 +4,38 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
 use App\Models\Post as PostModel;
+use App\Orm\Connector;
 use App\Orm\Insert;
 
 class Post extends Controller
 {
     public function create()
     {
-        $model = new PostModel();
-        $posts = $model->getAllPost();
-        $insert = new Insert();
-        $insert->setTableName('Post');
-        $insert->setFields($posts);
-        print_r($insert->buildSql());
+        if (!empty($_POST)) {
+            $model = new PostModel();
+            $model->save(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
+        $this->adminView('Post/postCreate');
     }
 
     public function read()
     {
-        echo "This is the Admin Post page, Read method.";
+        $this->adminView('Post/postRead');
     }
 
     public function update()
     {
         $model = new PostModel();
         $this->data = ['data' => $model->getOnePost($_GET['id'])];
+        if (!empty($_POST)) {
+            $model->update(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
         $this->adminView('Post/postUpdate');
     }
 
     public function delete()
     {
-        echo "This is the Admin Post page, Delete method.";
+        $model = new PostModel();
+        $model->delete($_GET['id']);
     }
 }

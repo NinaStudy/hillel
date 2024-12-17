@@ -1,44 +1,23 @@
-<form>
-    <input name="id" type="hidden" value="<?= $data['id'] ?>">
-    <table>
-        <tr>
-            <td>
-                title
-            </td>
-            <td>
-                <input name="title" placeholder="text" value="<?= $data['title'] ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                text
-            </td>
-            <td>
-                <input name="text" placeholder="text" value="<?= $data['text'] ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                postCategoryId
-            </td>
-            <td>
-                <input name="postCategoryId" placeholder="int" value="<?= $data['postCategoryId'] ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                userId
-            </td>
-            <td>
-                <input name="userId" placeholder="int" value="<?= $data['userId'] ?>">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit">
-                    save
-                </button>
-            </td>
-        </tr>
-    </table>
+<form method="POST" action="">
+    <fieldset>
+        <legend>Update Post</legend>
+        <div class="col-sm-5">
+            <label for="title" class="form-label mt-4">Edit title</label>
+            <input name="title" class="form-control" id="title" placeholder="Enter your title"></input>
+        </div>
+
+        <div class="col-sm-5">
+            <label for="editPost" class="form-label mt-4">Edit Post</label>
+            <textarea name="text" class="form-control" id="editPost" rows="4" placeholder="Edit your post"></textarea>
+        </div>
+        <div class="col-sm-5">
+            <label for="postCategoryId" class="form-label mt-4">Post Category Id</label>
+            <input name="postCategoryId" class="form-control" id="postCategoryId" placeholder="post Id"></input>
+        </div>
+        <div class="col-sm-5">
+            <label for="userId" class="form-label mt-4">User Id</label>
+            <input name="userId" class="form-control" id="userId" placeholder="user Id"></texta>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </fieldset>
 </form>

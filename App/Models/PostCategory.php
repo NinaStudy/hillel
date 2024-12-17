@@ -3,9 +3,18 @@
 namespace App\Models;
 
 use Exception;
+use App\Orm\Delete;
+use App\Orm\Insert;
+use App\Orm\Update;
 
 class PostCategory
 {
+    public int $id;
+    public string $title;
+    public string $text;
+    public int $postCategoryId;
+    public string $created;
+    public string $updated;
     private array $postCategory = [
         1 => [
             'id' => 1,
@@ -44,5 +53,37 @@ class PostCategory
             return $this->postCategory[$id];
         }
         throw new Exception('id is absent');
+    }
+
+    public function save(array $data)
+    {
+        $update = new Insert();
+        $update->setTableName('PostCategory');
+        $update->setFields($data);
+        $update->buildSql();
+        $update->execute();
+    }
+
+    public function update(array $data)
+    {
+        $insert = new Update();
+        $insert->setTableName('PostCategory');
+        $insert->setData($data);
+        $insert->buildSql();
+        $insert->execute();
+    }
+
+    public function delete($id)
+    {
+        $delete = new Delete();
+        $delete->setTableName('PostCategory');
+        $delete->andWhere(['id', '=', $id]);
+        $delete->execute();
+
+    }
+
+    public function toArray()
+    {
+        return get_class_vars(get_class($this));
     }
 }
