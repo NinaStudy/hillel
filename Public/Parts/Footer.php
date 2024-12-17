@@ -1,3 +1,3 @@
 <footer>
-another text
+    &copy; Nina
 </footer>

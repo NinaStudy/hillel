@@ -9,23 +9,31 @@ class PostCategory extends Controller
 {
     public function create()
     {
-        echo "This is the Admin PostCategory page, Create method.";
+        if (!empty($_POST)) {
+            $model = new PostCategoryModel();
+            $model->save(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
+        $this->adminView('PostCategory/postCategoryCreate');
     }
 
     public function read()
     {
-        echo "This is the Admin PostCategory page, Read method.";
+        $this->adminView('PostCategory/postCategoryRead');
     }
 
     public function update()
     {
         $model = new PostCategoryModel();
         $this->data = ['data' => $model->getOnePostCategory($_GET['id'])];
-        $this->adminView('PostCategory/postCategoryUpdate');
+        if (!empty($_POST)) {
+            $model->update(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
+        $this->adminView('PostCategory/postCategoryRead');
     }
 
     public function delete()
     {
-        echo "This is the Admin PostCategory page, Delete method.";
+        $model = new PostCategoryModel();
+        $model->delete($_GET['id']);
     }
 }

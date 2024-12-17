@@ -4,9 +4,15 @@ $config = require "Config/controller.php";
 
 use App\Core\Router;
 
-$router = new Router($config);
-$router->run();
+try {
+    $router = new Router($config);
+    $router->run();
+} catch (\Throwable $e) {
+    print 'Message '. $e->getMessage();
+    print 'File' . $e->getFile();
+    print 'Line' . $e->getLine();
 
+}
 
 
 

@@ -4,17 +4,23 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
 use App\Models\GalleryCategory as GalleryCategoryModel;
+use App\Orm\Connector;
+use App\Orm\Insert;
 
 class GalleryCategory extends Controller
 {
     public function create()
     {
-        echo "This is the Admin GalleryCategory page, Create method.";
+        if (!empty($_POST)) {
+            $model = new GalleryCategoryModel();
+            $model->save(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
+        $this->adminView('GalleryCategory/galleryCategoryCreate');
     }
 
     public function read()
     {
-        echo "This is the Admin GalleryCategory page, Read method.";
+        $this->adminView('GalleryCategory/galleryCategoryRead');
     }
 
     public function update()
@@ -26,6 +32,7 @@ class GalleryCategory extends Controller
 
     public function delete()
     {
-        echo "This is the Admin GalleryCategory page, Delete method.";
+        $model = new GalleryCategoryModel();
+        $model->delete($_GET['id']);
     }
 }

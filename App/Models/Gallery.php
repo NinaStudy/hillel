@@ -3,9 +3,19 @@
 namespace App\Models;
 
 use Exception;
+use App\Orm\Delete;
+use App\Orm\Insert;
+use App\Orm\Update;
 
 class Gallery
 {
+    public int $id;
+    public string $name;
+    public string $image;
+    public string $categoryName;
+    public int $categoryId;
+    public string $created;
+    public string $updated;
     private array $gallery = [
         1 => [
             'id' => 1,
@@ -48,5 +58,36 @@ class Gallery
             return $this->gallery[$id];
         }
         throw new Exception('id is absent');
+    }
+
+    public function save(array $data)
+    {
+        $update = new Insert();
+        $update->setTableName('Gallery');
+        $update->setFields($data);
+        $update->buildSql();
+        $update->execute();
+    }
+
+    public function update(array $data)
+    {
+        $insert = new Update();
+        $insert->setTableName('Gallery');
+        $insert->setData($data);
+        $insert->buildSql();
+        $insert->execute();
+    }
+
+    public function delete($id)
+    {
+        $delete = new Delete();
+        $delete->setTableName('Gallery');
+        $delete->andWhere(['id', '=', $id]);
+        $delete->execute();
+    }
+
+    public function toArray()
+    {
+        return get_class_vars(get_class($this));
     }
 }

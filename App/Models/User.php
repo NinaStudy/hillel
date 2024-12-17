@@ -3,9 +3,19 @@
 namespace App\Models;
 
 use Exception;
+use App\Orm\Delete;
+use App\Orm\Insert;
+use App\Orm\Update;
 
 class User
 {
+    public int $id;
+    public string $name;
+    public string $surname;
+    public string $email;
+    public string $phone;
+    public string $created;
+    public string $updated;
     private array $user = [
         1 => [
             'id' => 1,
@@ -48,5 +58,36 @@ class User
             return $this->user[$id];
         }
         throw new Exception('id is absent');
+    }
+
+    public function save(array $data)
+    {
+        $update = new Insert();
+        $update->setTableName('User');
+        $update->setFields($data);
+        $update->buildSql();
+        $update->execute();
+    }
+
+    public function update(array $data)
+    {
+        $insert = new Update();
+        $insert->setTableName('User');
+        $insert->setData($data);
+        $insert->buildSql();
+        $insert->execute();
+    }
+
+    public function delete($id)
+    {
+        $delete = new Delete();
+        $delete->setTableName('User');
+        $delete->andWhere(['id', '=', $id]);
+        $delete->execute();
+    }
+
+    public function toArray()
+    {
+        return get_class_vars(get_class($this));
     }
 }

@@ -9,7 +9,11 @@ class Gallery extends Controller
 {
     public function create()
     {
-        echo "This is the Admin Gallery page, Create method.";
+        if (!empty($_POST)) {
+            $model = new GalleryModel();
+            $model->save(array_intersect_key(array_filter($_POST), $model->toArray()));
+        }
+        $this->adminView('Gallery/Admin/galleryCreate');
     }
 
     public function read()
@@ -29,6 +33,7 @@ class Gallery extends Controller
 
     public function delete()
     {
-        echo "This is the Admin Gallery page, Delete method.";
+        $model = new GalleryModel();
+        $model->delete($_GET['id']);
     }
 }

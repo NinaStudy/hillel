@@ -33,7 +33,7 @@ class Connector
         if (empty($this->config['user'])) {
             throw new \Exception('Missing DNS data');
         }
-        $this->pdo = new PDO($this->getDns(), $this->config['user'], $this->config['password']);
+        $this->pdo = new PDO($this->getDns(), $this->config['user'], $this->config['password'], $options);
     }
 
     public function connect(): PDO

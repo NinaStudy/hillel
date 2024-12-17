@@ -2,12 +2,23 @@
 
 namespace App\Models;
 
+use App\Orm\Delete;
 use App\Orm\Insert;
 use Exception;
-use App\Orm\Insert as InsertOrm;
+use App\Orm\Update;
 
 class Post
 {
+
+    public int $id;
+    public string $title;
+    public string $text;
+    public int $userId;
+    public int $postCategoryId;
+    public string $created;
+    public string $updated;
+
+
     private array $post = [
         1 => [
             'id' => 1,
@@ -47,22 +58,48 @@ class Post
         ],
     ];
 
-    public function __construct()
-    {
-        $insert = new Insert();
-        $insert->setTableName('Post');
-    }
-
-    public function getAllPost(): array
+    public function getAllPost()
     {
         return $this->post;
     }
 
-    public function getOnePost(int $id): array
+    public function getOnePost(int $id)
     {
         if (!empty($this->post[$id])) {
             return $this->post[$id];
         }
         throw new Exception('id is absent');
+    }
+
+    public function save(array $data)
+    {
+        $update = new Insert();
+        $update->setTableName('Post');
+        $update->setFields($data);
+        $update->buildSql();
+        $update->execute();
+    }
+
+    public function update(array $data)
+    {
+        $insert = new Update();
+        $insert->setTableName('Post');
+        $insert->setData($data);
+        $insert->buildSql();
+        $insert->execute();
+    }
+
+    public function delete($id)
+    {
+        $delete = new Delete();
+        $delete->setTableName('Post');
+        $delete->andWhere(['id', '=', $id]);
+        $delete->execute();
+
+    }
+
+    public function toArray()
+    {
+        return get_class_vars(get_class($this));
     }
 }
